@@ -68,7 +68,7 @@ class ConnectionRequest(models.Model):
     class Meta:
         verbose_name = 'Заявка на подключение'
         verbose_name_plural = 'Заявки на подключение'
-        ordering = ('date_entered_status',)
+        ordering = ('-date_entered_status',)
 
     def __str__(self):
         return f"Заявка №{self.number}"

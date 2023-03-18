@@ -1,12 +1,15 @@
 import datetime
 
+from django.http import Http404
 from django.utils import timezone
 from rest_framework import mixins, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import ConnectionRequest
-from .serializers import ConnectionRequestListSerializer, ConnectionRequestRetrieveSerializer
+from .serializers import ConnectionRequestListSerializer, ConnectionRequestRetrieveSerializer, \
+    ConnectionRequestProcessingHistorySerializer
 
 
 class ConnectionRequestViewSet(mixins.ListModelMixin,
@@ -37,4 +40,13 @@ class ConnectionRequestViewSet(mixins.ListModelMixin,
 
     def retrieve(self, request, *args, **kwargs):
         serializer = ConnectionRequestRetrieveSerializer(self.queryset.get(pk=self.kwargs.get('pk')))
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def history(self, request):
+        number = request.GET.get('number')
+        if not number:
+            raise Http404()
+        queryset = ConnectionRequest.objects.filter(number=number).order_by('date_entered_status')
+        serializer = ConnectionRequestProcessingHistorySerializer(queryset, many=True)
         return Response(serializer.data)

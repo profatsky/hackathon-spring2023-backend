@@ -25,19 +25,15 @@ class ConnectionRequest(models.Model):
     completion_TVP_date = models.DateTimeField(verbose_name='Завершение проверки ТВП')
     TVP_check_duration = models.CharField(max_length=8, verbose_name='Длительность проверки ТВП')
     agreed_connection_date = models.DateTimeField(verbose_name='Согласованная дата подключения')
-    installer = models.ForeignKey('Installer', related_name='connection_requests', on_delete=models.PROTECT,
+    installer = models.ForeignKey('Installer', related_name='connection_requests', null=True, on_delete=models.PROTECT,
                                   verbose_name='Инсталлятор')
-
-    # !!! Узнать какие данные об агенте должны хранится в базе
-    agent_installer = models.ForeignKey('AgentInstaller', related_name='connection_requests', on_delete=models.PROTECT,
-                                        verbose_name='Агент-инсталлятор')
+    agent_installer = models.ForeignKey('AgentInstaller', related_name='connection_requests', null=True,
+                                        on_delete=models.PROTECT, verbose_name='Агент-инсталлятор')
     comment_TVP_ShPD = models.CharField(max_length=250, blank=True, verbose_name='Комментарий ТВП ШПД')
     # started_by = models.ForeignKey('Operator', related_name='connection_requests', on_delete=models.PROTECT,
     #                              verbose_name='Оператор заводивший заявку')
-    # !!! Узнать насчет ID Договор КУРС и Номер договора Курс
-    id_agreement_KURS = models.PositiveIntegerField(verbose_name='ID Договор КУРС')
-    number_agreement_KURS = models.PositiveIntegerField(verbose_name='Номер договора курс')
-    note = models.CharField(max_length=250, verbose_name='Примечание')
+    id_agreement_KURS = models.CharField(max_length=250, verbose_name='ID Договор КУРС')
+    note = models.CharField(max_length=250, unique=True, verbose_name='Примечание')
     contact_phone_number = models.PositiveIntegerField(verbose_name='Контактный телефон')
     contact_person = models.CharField(max_length=200, blank=True, verbose_name='Контактное лицо')
     TP_ShPD_price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Стоимость ТП (ШПД)')
@@ -50,7 +46,6 @@ class ConnectionRequest(models.Model):
     IPTV_access_card_number = models.PositiveIntegerField(verbose_name='Номер карты доступа IPTV')
     tariff_plan = models.ForeignKey('TariffPlan', related_name='connection_requests', on_delete=models.PROTECT,
                                     verbose_name='Тарифный план')
-    # !!! Ячейка EB (Услуги). Узнать, что должно там храниться
     client_number_SUS = models.PositiveIntegerField(verbose_name='№ клиентский СУС')
     sending_date_APTV = models.DateTimeField(verbose_name='Дата отправки на АПТВ')
     finishing_date_APTV_planned = models.DateTimeField(verbose_name='Дата окончания АПТВ планируемая')
@@ -125,7 +120,9 @@ class TVPPresence(models.Model):
 
 
 class Installer(models.Model):
-    title = models.CharField(max_length=50, unique=True, verbose_name='Название')
+    fist_name = models.CharField(max_length=50, verbose_name='Имя')
+    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
+    surname = models.CharField(max_length=50, verbose_name='Отчество')
 
     class Meta:
         verbose_name = 'Инсталлятор'
@@ -133,8 +130,7 @@ class Installer(models.Model):
 
 
 class AgentInstaller(models.Model):
-    # !!! Нужно узнать какие данные об агенте будут хранится
-    title = models.CharField(max_length=50, unique=True, verbose_name='Название')
+    title = models.CharField(max_length=250, unique=True, verbose_name='Название')
 
     class Meta:
         verbose_name = 'Агент-инсталлятор'

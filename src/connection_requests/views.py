@@ -51,7 +51,6 @@ class ConnectionRequestViewSet(mixins.ListModelMixin,
 
         return paginator.get_paginated_response(serializer.data)
 
-
     def retrieve(self, request, *args, **kwargs):
         serializer = ConnectionRequestRetrieveSerializer(self.queryset.get(pk=self.kwargs.get('pk')))
         return Response(serializer.data)

@@ -3,7 +3,7 @@ from import_export.admin import ImportExportMixin
 
 from .models import ConnectionRequest, Client, \
     Status, StatusGroup, Service, AdditionalSalesChannel, TVPTestType, \
-    TVPPresence, Installer, AgentInstaller, IPTVTariffPlan, TariffPlan, File
+    TVPPresence, Installer, AgentInstaller, IPTVTariffPlan, TariffPlan
 
 from .resources import ConnectionRequestResources
 from .services.excel import upload_data

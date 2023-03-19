@@ -27,7 +27,7 @@ class ConnectionRequestResources(resources.ModelResource):
     date_entered_status = Field(
         column_name='Дата входа заявки в статус',
         attribute='date_entered_status',
-        widget=DateWidget(
+        widget=iDateWidget(
             format='%d/%m/%Y'
         )
     )
@@ -44,21 +44,21 @@ class ConnectionRequestResources(resources.ModelResource):
     reg_date = Field(
         column_name='Дата регистрации заявки',
         attribute='reg_date',
-        widget=DateWidget(
+        widget=iDateWidget(
             format='%d/%m/%Y'
         )
     )
     reg_date_for_request = Field(
         column_name='Дата регистрации под заявки',
         attribute='reg_date_for_request',
-        widget=DateWidget(
+        widget=iDateWidget(
             format='%d/%m/%Y'
         )
     )
     reg_date_brigade_for_TVP = Field(
         column_name='Рег. наряда на ТВП',
         attribute='reg_date_brigade_for_TVP',
-        widget=DateWidget(
+        widget=iDateWidget(
             format='%d/%m/%Y'
         )
     )
@@ -70,7 +70,7 @@ class ConnectionRequestResources(resources.ModelResource):
     rejection_date = Field(
         column_name='Дата отклонения под заявки',
         attribute='rejection_date',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
@@ -87,7 +87,7 @@ class ConnectionRequestResources(resources.ModelResource):
     completion_TVP_date = Field(
         column_name='Завершение проверки ТВП',
         attribute='completion_TVP_date',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
@@ -172,21 +172,21 @@ class ConnectionRequestResources(resources.ModelResource):
     sending_date_APTV = Field(
         column_name='Дата отправки на АПТВ',
         attribute='sending_date_APTV',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
     finishing_date_APTV_planned = Field(
         column_name='Дата окончания АПТВ планируемая',
         attribute='finishing_date_APTV_planned',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
     finishing_date_APTV_actual = Field(
         column_name='Дата окончания АПТВ фактическая',
         attribute='finishing_date_APTV_actual',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
@@ -198,21 +198,21 @@ class ConnectionRequestResources(resources.ModelResource):
     sending_date_DO = Field(
         column_name='Дата отправки на ДО',
         attribute='sending_date_DO',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
     finishing_date_DO_planned = Field(
         column_name='Дата окончания ДО планируемая',
         attribute='finishing_date_DO_planned',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )
     finishing_date_DO_actual = Field(
         column_name='Дата окончания ДО фактическая',
         attribute='finishing_date_DO_actual',
-        widget=DateTimeWidget(
+        widget=iDateTimeWidget(
             format='%d/%m/%Y %H:%M'
         )
     )

@@ -1,5 +1,7 @@
-from import_export.widgets import ForeignKeyWidget, DurationWidget
+from import_export.widgets import ForeignKeyWidget, DurationWidget, DateWidget, DateTimeWidget
 from datetime import timedelta
+from numpy import NaN
+from pandas import NaT
 import uuid
 import re
 
@@ -28,7 +30,7 @@ class TitleForeignKeyWidget(ForeignKeyWidget):
         if len(obj) > 0:
             return obj[0]
 
-        if value is None:
+        if value is None or isinstance(value, float) or isinstance(value, type(NaT)):
             value = 'None'
 
         new_obj, created = self.model.objects.get_or_create(title=value)
@@ -51,7 +53,7 @@ class ClientForeignKeyWidget(ForeignKeyWidget):
     # Client
     def clean(self, value, row=None, **kwargs):
         INN = row['ИНН']
-        if INN is None:
+        if INN is None or value is NaN:
             INN = 0
         obj, created = self.model.objects.get_or_create(title=value, INN=INN)
         return obj
@@ -61,7 +63,7 @@ class InstallerForeignKeyWidget(ForeignKeyWidget):
     # Installer
     def clean(self, value, row=None, **kwargs):
         first_name, last_name, surname = 'None', 'None', 'None'
-        if value is not None:
+        if value is not None and not isinstance(value, float) and not isinstance(value, type(NaT)):
             first_name, last_name, surname = value.split() 
         obj, created = self.model.objects.get_or_create(
             first_name=first_name,
@@ -77,7 +79,7 @@ class UserForeignKeyWidget(ForeignKeyWidget):
         email = uuid.uuid4().hex[:6].upper() + '@example.com'
         password = '12345'
         first_name, last_name, surname = 'None', 'None', 'None'
-        if value is not None:
+        if value is not None and not isinstance(value, float) and not isinstance(value, type(NaT)):
             first_name, last_name, surname = value.split() 
         obj = self.model.objects.filter(
             first_name=first_name, 
@@ -97,16 +99,15 @@ class UserForeignKeyWidget(ForeignKeyWidget):
         return obj
     
 
-
 class ClearDurationWidget(DurationWidget):
 
     def clean(self, value, row=None, **kwargs):
-        if value is None:
+        if value is None or isinstance(value, float) or isinstance(value, type(NaT)):
             return None
         
         pattern = r'\d+д. \d+ч. \d+м.'
         
-        if not re.findall(pattern, value):
+        if not re.findall(pattern, str(value)):
             raise ValueError("Enter a valid time.")
 
         nums = [int(num) for num in re.findall(r'\d+', value)]
@@ -118,4 +119,17 @@ class ClearDurationWidget(DurationWidget):
         return timedelta(days=days, hours=hours, minutes=minutes)
         
         
-        
+class iDateTimeWidget(DateTimeWidget):
+    def clean(self, value, row=None, **kwargs):
+        if value is NaT or isinstance(value, type(NaT)):
+            return None
+
+        return super().clean(value, row, **kwargs)
+
+
+class iDateWidget(DateWidget):
+    def clean(self, value, row=None, **kwargs):
+        if value is NaT or isinstance(value, type(NaT)):
+            return None
+
+        return super().clean(value, row, **kwargs)

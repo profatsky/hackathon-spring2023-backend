@@ -1,0 +1,183 @@
+[
+{
+   "model": "connection_requests.status",
+   "pk": 1,
+   "fields": {
+      "title": "Создание договоров",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 2,
+   "fields": {
+      "title": "Отложена (нет тех. возможности)",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 3,
+   "fields": {
+      "title": "Назначено тех. обследование",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 4,
+   "fields": {
+      "title": "В работе",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 5,
+   "fields": {
+      "title": "Заведение заявки",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 6,
+   "fields": {
+      "title": "Обработка в СУС",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 7,
+   "fields": {
+      "title": "Отложена по просьбе клиента",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 8,
+   "fields": {
+      "title": "Назначение тех. данных",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 9,
+   "fields": {
+      "title": "Отсутствие ТВП ШПД по запрашиваемой технологии",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 10,
+   "fields": {
+      "title": "Закрытие наряда",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 11,
+   "fields": {
+      "title": "Не подтверждена",
+      "group": 1
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 12,
+   "fields": {
+      "title": "Удалена",
+      "group": 3
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 13,
+   "fields": {
+      "title": "Удалена (Ошибка ввода)",
+      "group": 3
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 14,
+   "fields": {
+      "title": "Удалена (Смена ТП)",
+      "group": 3
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 15,
+   "fields": {
+      "title": "Удалена (абонент уже подключен)",
+      "group": 3
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 16,
+   "fields": {
+      "title": "Тест",
+      "group": 3
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 17,
+   "fields": {
+      "title": "Закрыт",
+      "group": 2
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 18,
+   "fields": {
+      "title": "Закрыт ( не удалось связяться с клиентом)",
+      "group": 2
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 19,
+   "fields": {
+      "title": "Закрыт ( нет тех. Возможности)",
+      "group": 2
+   }
+},
+{
+   "model": "connection_requests.status",
+   "pk": 20,
+   "fields": {
+      "title": "Закрыт (отказ клиента)",
+      "group": 2
+   }
+},
+{
+   "model": "connection_requests.statusgroup",
+   "pk": 1,
+   "fields": {
+      "title": "Ликвидные"
+   }
+},
+{
+   "model": "connection_requests.statusgroup",
+   "pk": 2,
+   "fields": {
+      "title": "Финальные"
+   }
+},
+{
+   "model": "connection_requests.statusgroup",
+   "pk": 3,
+   "fields": {
+      "title": "Неликвидные"
+   }
+}
+]

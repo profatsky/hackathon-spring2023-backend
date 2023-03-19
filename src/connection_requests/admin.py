@@ -1,15 +1,24 @@
 from django.contrib import admin
+from import_export.admin import ImportExportMixin
 
-from .models import ConnectionRequest, Client, Status, StatusGroup, Service, AdditionalSalesChannel, TVPTestType, \
+from .models import ConnectionRequest, Client, \
+    Status, StatusGroup, Service, AdditionalSalesChannel, TVPTestType, \
     TVPPresence, Installer, AgentInstaller, IPTVTariffPlan, TariffPlan
+
+from .resources import ConnectionRequestResources
 
 
 @admin.register(ConnectionRequest)
-class ConnectionRequestAdmin(admin.ModelAdmin):
+class ConnectionRequestAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = ConnectionRequestResources
     list_display = ('number', 'status',)
     list_filter = ('status',)
-    raw_id_fields = ('client', 'status', 'service', 'additional_sales_channel', 'completed_by', 'TVP_test_type',
-                     'TVP_presence', 'installer', 'agent_installer', 'started_by', 'IPTV_tariff_plan')
+    raw_id_fields = (
+        'client', 'status', 'service', 
+        'additional_sales_channel', 'completed_by', 
+        'TVP_test_type', 'TVP_presence', 'installer', 
+        'agent_installer', 'started_by', 'IPTV_tariff_plan'
+    )
 
 
 @admin.register(Client)

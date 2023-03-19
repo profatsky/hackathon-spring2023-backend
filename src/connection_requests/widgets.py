@@ -1,0 +1,95 @@
+from import_export.widgets import ForeignKeyWidget 
+import uuid
+
+# kwargs = {
+#   'row_number': 10, 
+#   'file_name': 'Аудит заявок РФ_09.03.23.xlsx', 
+#   'user': <SimpleLazyObject: <User:   >>
+# }
+
+class TitleForeignKeyWidget(ForeignKeyWidget):
+    # Service
+    # AdditionalSalesChannel
+    # TVPTestType
+    # TVPPresence
+    # AgentInstaller
+    # AgentInstaller
+    # IPTVTariffPlan
+    # TariffPlan
+
+    def get_queryset(self, value, row, *args, **kwargs):
+        obj = self.model.objects.filter(title=value)
+        return obj
+
+    def clean(self, value, row=None, **kwargs):
+        obj = self.get_queryset(value, row)
+        if len(obj) > 0:
+            return obj[0]
+
+        if value is None:
+            value = 'None'
+
+        new_obj, created = self.model.objects.get_or_create(title=value)
+        return new_obj
+    
+
+class StatusForeignKeyWidget(ForeignKeyWidget):
+    # Status
+    def get_queryset(self, value, row, *args, **kwargs):
+        obj = self.model.objects.get(title=value)
+        return obj
+
+    def clean(self, value, row=None, *args, **kwargs):
+        # obj, created = self.model.objects.get_or_create(title=value)
+        obj = self.get_queryset(value, row)
+        return obj
+
+
+class ClientForeignKeyWidget(ForeignKeyWidget):
+    # Client
+    def clean(self, value, row=None, **kwargs):
+        INN = row['ИНН']
+        if INN is None:
+            INN = 0
+        obj, created = self.model.objects.get_or_create(title=value, INN=INN)
+        return obj
+
+
+class InstallerForeignKeyWidget(ForeignKeyWidget):
+    # Installer
+    def clean(self, value, row=None, **kwargs):
+        first_name, last_name, surname = 'None', 'None', 'None'
+        if value is not None:
+            first_name, last_name, surname = value.split() 
+        obj, created = self.model.objects.get_or_create(
+            first_name=first_name,
+            last_name=last_name,
+            surname=surname
+        )
+        return obj
+
+
+class UserForeignKeyWidget(ForeignKeyWidget):
+    # for fields where ForeignKey = User
+    def clean(self, value, row=None, **kwargs):
+        email = uuid.uuid4().hex[:6].upper() + '@example.com'
+        password = '12345'
+        first_name, last_name, surname = 'None', 'None', 'None'
+        if value is not None:
+            first_name, last_name, surname = value.split() 
+        obj = self.model.objects.filter(
+            first_name=first_name, 
+            last_name=last_name, 
+            surname=surname
+        )
+        if len(obj) > 0:
+            return obj[0]
+        
+        obj = self.model.objects.create_user(
+            email=email,
+            password=password,
+            first_name=first_name, 
+            last_name=last_name, 
+            surname=surname
+        )
+        return obj

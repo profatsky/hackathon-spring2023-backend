@@ -4,7 +4,7 @@ from users.models import User
 from dataclasses import dataclass
 
 class ConnectionRequest(models.Model):
-    number = models.PositiveIntegerField(verbose_name='Номер заявки')
+    number = models.PositiveIntegerField(db_index=True, verbose_name='Номер заявки')
     client = models.ForeignKey(
         'Client', related_name='connection_requests', 
         on_delete=models.PROTECT, 
@@ -160,6 +160,7 @@ class ConnectionRequest(models.Model):
     class Meta:
         verbose_name = 'Заявка на подключение'
         verbose_name_plural = 'Заявки на подключение'
+        ordering = ('-date_entered_status',)
 
     def __str__(self):
         return f"Заявка №{self.number}"
@@ -167,7 +168,7 @@ class ConnectionRequest(models.Model):
 
 class Client(models.Model):
     title = models.CharField(max_length=250, verbose_name='Название клиента')
-    INN = models.PositiveBigIntegerField(verbose_name='ИНН')
+    INN = models.PositiveBigIntegerField(db_index=True, unique=True, verbose_name='ИНН')
 
     class Meta:
         verbose_name = 'Клиент'
@@ -292,17 +293,8 @@ class TariffPlan(models.Model):
 
     def __str__(self):
         return self.title
-
-#
-# class TestModel(models.Model):
-#     title = models.CharField(max_length=250)
-#     description = models.TextField()
-#     link = models.ForeignKey('LinkModel', related_name='tests', on_delete=models.PROTECT)
-#
-#
-# class LinkModel(models.Model):
-#     title = models.CharField(max_length=250)
-
+      
+      
 @dataclass
 class DataExel:
     number: int

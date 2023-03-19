@@ -193,9 +193,7 @@ class ConnectionRequestResources(resources.ModelResource):
     APTV_duration = Field(
         column_name='Длительность этапа АПТВ',
         attribute='APTV_duration',
-        widget=TimeWidget(
-            format='%dd. %Hh. %Mm.'
-        )
+        widget=ClearDurationWidget()
     )
     sending_date_DO = Field(
         column_name='Дата отправки на ДО',
@@ -221,9 +219,7 @@ class ConnectionRequestResources(resources.ModelResource):
     DO_duration = Field(
         column_name='Длительность этапа ДО',
         attribute='DO_duration',
-        widget=TimeWidget(
-            format='%dd. %Hh. %Mm.'
-        )
+        widget=ClearDurationWidget()
     )
 
 

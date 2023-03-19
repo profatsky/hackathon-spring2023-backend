@@ -1,5 +1,7 @@
-from import_export.widgets import ForeignKeyWidget 
+from import_export.widgets import ForeignKeyWidget, DurationWidget
+from datetime import timedelta
 import uuid
+import re
 
 # kwargs = {
 #   'row_number': 10, 
@@ -93,3 +95,27 @@ class UserForeignKeyWidget(ForeignKeyWidget):
             surname=surname
         )
         return obj
+    
+
+
+class ClearDurationWidget(DurationWidget):
+
+    def clean(self, value, row=None, **kwargs):
+        if value is None:
+            return None
+        
+        pattern = r'\d+д. \d+ч. \d+м.'
+        
+        if not re.findall(pattern, value):
+            raise ValueError("Enter a valid time.")
+
+        nums = [int(num) for num in re.findall(r'\d+', value)]
+        days = nums[0]
+        hours = nums[1]
+        minutes = nums[2]
+
+
+        return timedelta(days=days, hours=hours, minutes=minutes)
+        
+        
+        

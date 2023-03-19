@@ -141,7 +141,7 @@ class ConnectionRequest(models.Model):
     finishing_date_APTV_actual = models.DateTimeField(
         blank=True, null=True, verbose_name='Дата окончания АПТВ фактическая'
     )
-    APTV_duration = models.TimeField(
+    APTV_duration = models.DurationField(
         blank=True, null=True, verbose_name='Длительность этапа АПТВ'
     )
     sending_date_DO = models.DateTimeField(
@@ -153,8 +153,8 @@ class ConnectionRequest(models.Model):
     finishing_date_DO_actual = models.DateTimeField(
         blank=True, null=True, verbose_name='Дата окончания ДО фактическая'
     )
-    DO_duration = models.TimeField(
-        blank=True, null=True, verbose_name='Длительность этапа ДО'
+    DO_duration = models.DurationField(
+        blank=True, null=True, verbose_name='Длительность этапа ДО',
     )
 
     class Meta:

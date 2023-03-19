@@ -165,4 +165,7 @@ EMAIL_USE_SSL = True
 
 
 USE_TZ = False
-TIME_INPUT_FORMATS = ('%dд. %Hч. %Mм.', '%H:%M:%S')
+TIME_INPUT_FORMATS = (
+    '%dд. %Hч. %Mм.', 
+    '%H:%M:%S',
+)

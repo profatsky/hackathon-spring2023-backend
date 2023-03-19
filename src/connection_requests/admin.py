@@ -3,9 +3,10 @@ from import_export.admin import ImportExportMixin
 
 from .models import ConnectionRequest, Client, \
     Status, StatusGroup, Service, AdditionalSalesChannel, TVPTestType, \
-    TVPPresence, Installer, AgentInstaller, IPTVTariffPlan, TariffPlan
+    TVPPresence, Installer, AgentInstaller, IPTVTariffPlan, TariffPlan, File
 
 from .resources import ConnectionRequestResources
+from .services.excel import upload_data
 
 
 @admin.register(ConnectionRequest)
@@ -75,3 +76,16 @@ class IPTVTariffPlanAdmin(admin.ModelAdmin):
 @admin.register(TariffPlan)
 class TariffPlanAdmin(admin.ModelAdmin):
     list_display = ('title',)
+
+
+# @admin.register(File)
+# class FileAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'upload_at')
+#
+#     def save_model(self, request, obj, form, change):
+#         new = False
+#         if obj.upload_at is None:
+#             new = True
+#         super().save_model(request, obj, form, change)
+#         if new:
+#             upload_data(obj.file)

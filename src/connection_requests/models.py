@@ -3,6 +3,7 @@ from users.models import User
 
 from dataclasses import dataclass
 
+
 class ConnectionRequest(models.Model):
     number = models.PositiveIntegerField(db_index=True, verbose_name='Номер заявки')
     client = models.ForeignKey(
@@ -168,7 +169,7 @@ class ConnectionRequest(models.Model):
 
 class Client(models.Model):
     title = models.CharField(max_length=250, verbose_name='Название клиента')
-    INN = models.PositiveBigIntegerField(db_index=True, unique=True, verbose_name='ИНН')
+    INN = models.PositiveBigIntegerField(db_index=True, verbose_name='ИНН')
 
     class Meta:
         verbose_name = 'Клиент'
@@ -228,7 +229,7 @@ class AdditionalSalesChannel(models.Model):
 
 
 class TVPTestType(models.Model):
-    title = models.CharField(max_length=10, unique=True, verbose_name='Название')
+    title = models.CharField(max_length=50, unique=True, verbose_name='Название')
 
     class Meta:
         verbose_name = 'Тип проверки ТВП'
@@ -239,7 +240,7 @@ class TVPTestType(models.Model):
 
 
 class TVPPresence(models.Model):
-    title = models.CharField(max_length=10, unique=True, verbose_name='Название')
+    title = models.CharField(max_length=50, unique=True, verbose_name='Название')
 
     class Meta:
         verbose_name = 'Наличие ТВП'
@@ -293,8 +294,19 @@ class TariffPlan(models.Model):
 
     def __str__(self):
         return self.title
-      
-      
+
+#
+# class File(models.Model):
+#     title = models.CharField(max_length=256, default='No title', verbose_name='Название')
+#     file = models.FileField(upload_to='files', verbose_name='Файл')
+#     upload_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата загрузки')
+#
+#     class Meta:
+#         verbose_name = 'Файл .xlsx с заявками'
+#         verbose_name_plural = 'Файлы .xlsx с заявками'
+#         ordering = ('-upload_at',)
+#
+
 @dataclass
 class DataExel:
     number: int

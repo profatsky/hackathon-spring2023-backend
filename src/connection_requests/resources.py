@@ -225,5 +225,5 @@ class ConnectionRequestResources(resources.ModelResource):
 
     class Meta:
         model = ConnectionRequest
-        exclude = ['id']
-        import_id_fields = ['number']
+        # exclude = ['id']
+        # import_id_fields = ['number']
